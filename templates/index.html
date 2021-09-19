@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1 class="header">Price Tracker</h1>
+    <form method="POST">
+        <input name="link-input" size="150" class="input-box">
+        <input name="link-input-btn" type="submit">
+        <input class="update-btn" name="update-btn" value="Update" type="submit">
+    </form>
+    <table class="table">
+        <tr class="table_header">
+            {% for header in headings %}
+                <th class="table_header_cell">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+            <tr class="table_row">
+                {% for cell in row %}
+                    <td class="table_cell">{{ cell }}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
