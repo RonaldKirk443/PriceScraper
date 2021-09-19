@@ -8,6 +8,7 @@ Button that updates the prices.<br>
 
 TODO: <br>
 Support for newegg and ebay.<br>
+Auto update every day or so. <br>
 Lots of exceptions for different cases.<br>
 Removing links from the system.<br>
 Individual pages for each link to see history / graph. <br>
