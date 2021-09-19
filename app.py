@@ -28,7 +28,6 @@ def get_page(url):
 
 
 def get_amazon_ca_data(link, website, date, currency):
-    print("hehe")
     amazonPriceRegex = "class=\"a-size-medium a-color-price priceBlockBuyingPriceString\">\$(.*?)<"
     amazonLowestPriceRegex = "class=\"a-size-base a-color-base\">\$(.*?)<"
     # amazonLowestPriceRegex = "id=\"price_inside_buybox\" class=\"a-size-medium a-color-price\">(.*?)<"
@@ -108,9 +107,6 @@ def new_link():
 
 @app.route("/new-link", methods=['POST'])
 def new_link_post():
-    print("\n\n\n")
-    print(data)
-    print("\n\n\n")
     if(request.form.get('yes_button') != None):
         import db_module
         conn = db_module.create_connection(database)

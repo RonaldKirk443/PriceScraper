@@ -64,14 +64,10 @@ def price_update(connection, name, real_price, unreal_price, date, link):
         return
 
     table_name = "Link_" + str(sql_id[0][0])
-    print(table_name)
     sql_insert_price = """INSERT INTO "main"."{}" ("Name","Official_price","Unofficial_price","Date") VALUES(?,?,?,?)""".format(table_name)
-    print("UPDATED INDEX")
     cursor.execute(sql_insert_price, (name, real_price, unreal_price, date))
-    print("INSERTED PRICE")
     connection.commit()
     cursor.close()
-    print("BOOOOOOO")
 
 def del_record(connection, link):
     cursor = connection.cursor()
