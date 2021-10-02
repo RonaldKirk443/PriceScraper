@@ -19,9 +19,34 @@
             {% endfor %}
         </tr>
         {% for row in data %}
+            {% set outer_loop = loop %}
             <tr class="table_row">
-                {% for cell in row %}
-                    <td class="table_cell">{{ cell }}</td>
+                {% for i in range(row|length) %}
+                    {% if i == 4%}
+                        {% if price_change[outer_loop.index -1] > 0%}
+                            <td class="table_cell">{{ row[i] }} <br> <p class="negative">+{{ price_change[outer_loop.index -1]}}({{ price_percentage_change[outer_loop.index - 1]}}%)</p></td>
+                        {% elif price_change[outer_loop.index -1] < 0%}
+                            <td class="table_cell">{{ row[i] }} <br> <p class="positive">{{ price_change[outer_loop.index -1]}}({{ price_percentage_change[outer_loop.index - 1]}}%)</p></td>
+                        {% elif price_change[outer_loop.index -1] == 0%}
+                            <td class="table_cell">{{ row[i] }} <br> -</td>
+                        {% else %}
+                            <td class="table_cell">{{ row[i] }} <br> Err</td>
+                        {% endif %}
+                    {% elif i == 5%}
+                        {% if secondary_price_change[outer_loop.index -1] > 0%}
+                            <td class="table_cell">{{ row[i] }} <br> <p class="negative">+{{ secondary_price_change[outer_loop.index -1]}}({{ secondary_price_percentage_change[outer_loop.index - 1]}}%)</p></td>
+                        {% elif secondary_price_change[outer_loop.index -1] < 0%}
+                            <td class="table_cell">{{ row[i] }} <br> <p class="positive">{{ secondary_price_change[outer_loop.index -1]}}({{ secondary_price_percentage_change[outer_loop.index - 1]}}%)</p></td>
+                        {% elif secondary_price_change[outer_loop.index -1] == 0%}
+                            <td class="table_cell">{{ row[i] }} <br> -</td>
+                        {% else %}
+                            <td class="table_cell">{{ row[i] }} <br> Err</td>
+                        {% endif %}
+                    {% elif i == 7%}
+                        <td class="table_cell"><a href={{row[i]}}>LINK</a></td>
+                    {% else %}
+                        <td class="table_cell">{{ row[i] }}</td>
+                    {% endif %}
                 {% endfor %}
             </tr>
         {% endfor %}

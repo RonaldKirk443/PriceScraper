@@ -80,7 +80,13 @@ def index():
     import db_module
     conn = db_module.create_connection(database)
     response = db_module.get_main_db(conn)
-    return render_template("index.html", headings=headings, data=response)
+    price_changes = db_module.get_price_change(conn)
+    print(price_changes)
+    price_diff = price_changes[0]
+    price_percentage_diff = price_changes[1]
+    secondary_price_diff = price_changes[2]
+    secondary_price_percentage_diff = price_changes[3]
+    return render_template("index.html", headings=headings, data=response, price_change=price_diff, price_percentage_change=price_percentage_diff, secondary_price_change=secondary_price_diff, secondary_price_percentage_change=secondary_price_percentage_diff)
 
 @app.route("/", methods=['POST'])
 def index_post():

@@ -36,3 +36,15 @@ table, th, td {
 .table_cell {
     padding: 8px;
 }
+
+p {
+    margin: 0;
+    padding: 0;
+}
+.positive {
+    color:#4bb543;
+}
+
+.negative{
+    color:red;
+}

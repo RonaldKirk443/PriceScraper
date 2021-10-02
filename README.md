@@ -1,12 +1,13 @@
 # PriceScraper
 Gets the price of items over time
 
-Working Features:<br>
+<b>Working Features:</b><br>
 Basic website.<br>
 Ability to add amazon .com and .ca links to the database.<br>
 Button that updates the prices.<br>
+See price change compared to previous day <br>
 
-TODO: <br>
+<b>TODO:</b><br>
 Support for newegg and ebay.<br>
 Auto update every day or so. <br>
 Lots of exceptions for different cases.<br>

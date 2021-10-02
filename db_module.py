@@ -3,6 +3,13 @@ from sqlite3 import Error
 
 database = r"db\test.db"
 
+def check_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+
 
 def create_connection(db_file):
     # Create a database connection to a SQLite database
@@ -103,4 +110,75 @@ def get_main_db(connection):
     connection.commit()
     cursor.close()
     return result
+
+def get_price_change(connection):
+    sql_links = "SELECT * FROM Main_Index"
+    cursor = connection.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    table_count = len(cursor.fetchall()) - 1
+    output = []
+    price_change = []
+    percent_change = []
+    secondary_price_change = []
+    secondary_percent_change = []
+    for i in range(table_count):
+        table_name = "Link_" + str(i+1)
+        sql_row_count = """SELECT COUNT(*) FROM {}""".format(table_name)
+        cursor.execute(sql_row_count)
+        last_row = cursor.fetchall()[0][0]
+        sql_curr_price = """SELECT Official_price FROM {} WHERE ID = {}""".format(table_name, last_row)
+        cursor.execute(sql_curr_price)
+        get_cursor = cursor.fetchall()[0][0]
+        curr_price = 0
+        if(check_float(get_cursor)):
+            curr_price = float(get_cursor)
+
+        sql_secondary_curr_price = """SELECT Unofficial_price FROM {} WHERE ID = {}""".format(table_name, last_row)
+        cursor.execute(sql_secondary_curr_price)
+        get_cursor = cursor.fetchall()[0][0]
+        secondary_price = 0
+        if (check_float(get_cursor)):
+            secondary_price = float(get_cursor)
+
+        old_price = 0
+        secondary_old_price = 0
+
+        if(last_row > 1 and isinstance(curr_price, float)):
+            sql_old_price = """SELECT Official_price FROM {} WHERE ID = {}""".format(table_name, last_row - 1)
+            cursor.execute(sql_old_price)
+            old_price = cursor.fetchall()[0][0]
+            if(isinstance(old_price, float)):
+                price_change.append(round(curr_price - old_price))
+                percent_change.append(abs(round(((curr_price - old_price) / old_price) * 100)))
+            else:
+                price_change.append("ERR")
+                percent_change.append("ERR")
+        else:
+            price_change.append(0)
+            percent_change.append(0)
+
+        if(last_row > 1 and isinstance(secondary_price, float)):
+            sql_old_price = """SELECT Unofficial_price FROM {} WHERE ID = {}""".format(table_name, last_row - 1)
+            cursor.execute(sql_old_price)
+            secondary_old_price = cursor.fetchall()[0][0]
+            if(isinstance(old_price, float)):
+                secondary_price_change.append(round(secondary_price - secondary_old_price))
+                secondary_percent_change.append(abs(round(((secondary_price - secondary_old_price) / secondary_old_price) * 100)))
+            else:
+                secondary_price_change.append("ERR")
+                secondary_percent_change.append("ERR")
+        else:
+            secondary_price_change.append(0)
+            secondary_percent_change.append(0)
+
+    output.append(price_change)
+    output.append(percent_change)
+    output.append(secondary_price_change)
+    output.append(secondary_percent_change)
+    connection.commit()
+    cursor.close()
+    return output
+
+#conn = create_connection(database)
+#get_price_change(conn)
 #create_sql_table(conn, "testName", "fakeLink", "currencyTes", "amazunyPrice", "NicePrice", "someday")
