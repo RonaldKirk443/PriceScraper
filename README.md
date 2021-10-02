@@ -14,3 +14,4 @@ Lots of exceptions for different cases.<br>
 Removing links from the system.<br>
 Individual pages for each link to see history / graph. <br>
 Alerts for low price (app / email / something).<br>
+Clean up code, especially db_module (someday) <br>
