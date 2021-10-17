@@ -28,12 +28,17 @@ def get_page(url):
 
 
 def get_amazon_ca_data(link, website, date, currency):
-    amazonPriceRegex = "class=\"a-size-medium a-color-price priceBlockBuyingPriceString\">\$(.*?)<"
+    amazonPriceRegex = "data-a-color=\"price\"><span class=\"a-offscreen\">\$(.*?)<"
     amazonLowestPriceRegex = "class=\"a-size-base a-color-base\">\$(.*?)<"
     # amazonLowestPriceRegex = "id=\"price_inside_buybox\" class=\"a-size-medium a-color-price\">(.*?)<"
     amazonPriceRegexCut = "[0-9](.*?)<"
     amazonTitleRegex1 = "<title>(.*?): Amazon"
     html = get_page(link)
+
+    file = open("HtmlTests/1.txt", "w", encoding="utf-8")
+    file.write(html)
+    file.close()
+
     try:
         title = re.search(amazonTitleRegex1, html).group()[7:]
     except:
@@ -71,12 +76,19 @@ def parse_link(link):
     # file.write(data[3])
     # file.close()
 
-
+def update_db():
+    import db_module
+    conn = db_module.create_connection(database)
+    response = db_module.get_links(conn)
+    for link in response:
+        data = parse_link(link)
+        # title, website, currency, price, lowestPrice, date, link
+        db_module.price_update(conn, data[0], data[3], data[4], data[5], data[6])
 
 
 @app.route("/")
 def index():
-    headings = ["Index", "Name", "Website", "Currency", "Price", "Secondary Price", "Date", "Link"]
+    headings = ["Name", "Website", "Currency", "Price", "Secondary Price", "Date", "Link", "Delete"]
     import db_module
     conn = db_module.create_connection(database)
     response = db_module.get_main_db(conn)
@@ -93,14 +105,14 @@ def index_post():
     if(request.form.get('link-input-btn') != None):
         link = request.form['link-input']
         return redirect(url_for('new_link', link=link))
-    elif(request.form.get('update-btn') != None):
+    elif ('entry-delete-btn' in str(request.form.keys())):
+        entryNum = str(request.form.keys())[29:-3]
         import db_module
         conn = db_module.create_connection(database)
-        response = db_module.get_links(conn)
-        for link in response:
-            data = parse_link(link)
-            # title, website, currency, price, lowestPrice, date, link
-            db_module.price_update(conn, data[0], data[3], data[4], data[5], data[6])
+        db_module.del_record_by_id(conn, entryNum)
+        return redirect(url_for('index'))
+    elif(request.form.get('update-btn') != None):
+        update_db()
         return redirect(url_for('index'))
 
 @app.route("/new-link")

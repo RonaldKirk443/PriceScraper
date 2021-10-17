@@ -40,9 +40,10 @@ def create_sql_table(connection, name, website, currency, real_price, unreal_pri
         return
 
     # Get the amount of tables present to generate proper name for next table" (amount of tables + 1)
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    table_id = len(cursor.fetchall())
-    table_name = "Link_" + str(table_id)
+    cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
+    table_id = int(cursor.fetchall()[0][0])
+    print(table_id)
+    table_name = "Link_" + str(table_id+1)
 
     # Create Table
     sql_create_table_command = "CREATE TABLE IF NOT EXISTS {} (ID INTEGER PRIMARY KEY," \
@@ -76,6 +77,7 @@ def price_update(connection, name, real_price, unreal_price, date, link):
     connection.commit()
     cursor.close()
 
+#TODO remove the line from Main_Index
 def del_record(connection, link):
     cursor = connection.cursor()
     sql_name_getter = """SELECT ID FROM Main_Index WHERE Link = ?"""
@@ -86,6 +88,19 @@ def del_record(connection, link):
 
     sql_insert_price = """DROP TABLE ?"""
     cursor.execute(sql_insert_price, (table_name,))
+    connection.commit()
+    cursor.close()
+
+def del_record_by_id(connection, id):
+    cursor = connection.cursor()
+    table_name = "Link_" + id
+    if (len(table_name) <= 0):
+        return
+
+    sql_drop_table = "DROP TABLE \"main\".\"{}\"".format(table_name)
+    cursor.execute(sql_drop_table)
+    sql_drop_row = "DELETE FROM \"main\".\"Main_Index\" WHERE ID = {}".format(id)
+    cursor.execute(sql_drop_row)
     connection.commit()
     cursor.close()
 
@@ -114,15 +129,15 @@ def get_main_db(connection):
 def get_price_change(connection):
     sql_links = "SELECT * FROM Main_Index"
     cursor = connection.cursor()
-    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-    table_count = len(cursor.fetchall()) - 1
+    cursor.execute("SELECT \"ID\" FROM Main_Index;")
+    table_id = cursor.fetchall()
     output = []
     price_change = []
     percent_change = []
     secondary_price_change = []
     secondary_percent_change = []
-    for i in range(table_count):
-        table_name = "Link_" + str(i+1)
+    for link_id in table_id:
+        table_name = "Link_" + str(link_id[0])
         sql_row_count = """SELECT COUNT(*) FROM {}""".format(table_name)
         cursor.execute(sql_row_count)
         last_row = cursor.fetchall()[0][0]
@@ -179,6 +194,8 @@ def get_price_change(connection):
     cursor.close()
     return output
 
-#conn = create_connection(database)
-#get_price_change(conn)
-#create_sql_table(conn, "testName", "fakeLink", "currencyTes", "amazunyPrice", "NicePrice", "someday")
+conn = create_connection(database)
+cursor = conn.cursor()
+cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
+table_id = int(cursor.fetchall()[0][0])
+print(table_id)

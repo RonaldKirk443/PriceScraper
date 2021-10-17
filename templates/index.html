@@ -44,10 +44,12 @@
                         {% endif %}
                     {% elif i == 7%}
                         <td class="table_cell"><a href={{row[i]}}>LINK</a></td>
+                    {% elif i == 0%}
                     {% else %}
                         <td class="table_cell">{{ row[i] }}</td>
                     {% endif %}
                 {% endfor %}
+                <td class="table_cell"><form method="POST"><input name="entry-delete-btn {{row[0]}}" value="DELETE" type="submit"></form></td>
             </tr>
         {% endfor %}
     </table>
