@@ -21,7 +21,7 @@ def download_page(url, i):
 
 def get_page(url):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0",
-               "Accept-Encoding": "gzip, deflate, br",
+               "Accept-Encoding": "gzip, deflate",
                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8", "DNT": "1",
                "Connection": "close", "Upgrade-Insecure-Requests": "1"}
     return requests.get(url, headers=headers).text
@@ -88,7 +88,7 @@ def update_db():
 
 @app.route("/")
 def index():
-    headings = ["Name", "Website", "Currency", "Price", "Secondary Price", "Last Check", "Link", "Delete"]
+    headings = ["Name", "Website", "Currency", "Price", "Secondary Price", "Date", "Link", "Delete"]
     import db_module
     conn = db_module.create_connection(database)
     response = db_module.get_main_db(conn)
@@ -111,10 +111,6 @@ def index_post():
         conn = db_module.create_connection(database)
         db_module.del_record_by_id(conn, entryNum)
         return redirect(url_for('index'))
-    elif ('entry-link' in str(request.form.keys())):
-        link_id = str(request.form.keys())[23:-3]
-        print(link_id)
-        return redirect(url_for('link_page', link_id=link_id))
     elif(request.form.get('update-btn') != None):
         update_db()
         return redirect(url_for('index'))
@@ -134,17 +130,3 @@ def new_link_post():
         conn = db_module.create_connection(database)
         response = db_module.create_sql_table(conn, data[0], data[1], data[2], data[3], data[4], data[5], data[6])
     return redirect(url_for('index'))
-
-@app.route("/link")
-def link_page():
-    link_id = request.args['link_id']
-    headings = ["Name", "Price", "Secondary Price", "Date"]
-    import db_module
-    conn = db_module.create_connection(database)
-    response = db_module.get_link_db(conn, link_id)
-    return render_template("entry.html", headings=headings, data=response)
-
-@app.route("/link", methods=['POST'])
-def link_page_post():
-    if (request.form.get('main-menu-btn') != None):
-        return redirect(url_for('index'))

@@ -126,15 +126,6 @@ def get_main_db(connection):
     cursor.close()
     return result
 
-def get_link_db(connection, link_id):
-    sql_links = "SELECT * FROM Link_" + str(link_id)
-    cursor = connection.cursor()
-    cursor.execute(sql_links)
-    result = cursor.fetchall()
-    connection.commit()
-    cursor.close()
-    return result
-
 def get_price_change(connection):
     sql_links = "SELECT * FROM Main_Index"
     cursor = connection.cursor()
@@ -205,8 +196,8 @@ def get_price_change(connection):
     cursor.close()
     return output
 
-#conn = create_connection(database)
-#cursor = conn.cursor()
-#cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
-#table_id = int(cursor.fetchall()[0][0])
-#print(table_id)
+conn = create_connection(database)
+cursor = conn.cursor()
+cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
+table_id = int(cursor.fetchall()[0][0])
+print(table_id)
