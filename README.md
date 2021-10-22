@@ -2,11 +2,12 @@
 Gets the price of items over time
 
 <h3>Working Features:</h3>
-Basic website.<br>
-Ability to add amazon .com and .ca links to the database.<br>
-Button that updates the prices.<br>
-See price change compared to previous day <br>
-Deleting links from the system. (Oct 17, 2021)<br>
+Parse amazon ca links<br>
+Basic website<br>
+Ability to add amazon .com and .ca links to the database<br>
+Button that updates the prices<br>
+See price change compared to previous day (Oct 2, 2021)<br>
+Deleting links from the system (Oct 17, 2021)<br>
 
 <h3>TODO:</h3>
 <b>ASYNC FOR UPDATING PRICES </b><br>

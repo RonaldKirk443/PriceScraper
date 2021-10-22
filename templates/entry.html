@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Tracker</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <h1 class="header">Price Tracker</h1>
+    <form method="POST">
+        <input style="margin-left: 1rem" name="main-menu-btn" value="Main menu" type="submit">
+    </form>
+    <table class="table">
+        <tr class="table_header">
+            {% for header in headings %}
+                <th class="table_header_cell">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        {% for row in data %}
+            {% set outer_loop = loop %}
+            <tr class="table_row">
+                {% for i in range(row|length) %}
+                    {% if i == 0%}
+                    {% else %}
+                        <td class="table_cell">{{ row[i] }}</td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
