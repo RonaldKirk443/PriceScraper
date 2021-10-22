@@ -8,6 +8,7 @@ Ability to add amazon .com and .ca links to the database<br>
 Button that updates the prices<br>
 See price change compared to previous day (Oct 2, 2021)<br>
 Deleting links from the system (Oct 17, 2021)<br>
+Simple version of individual pages for each link (Oct 22, 2021) <br>
 
 <h3>TODO:</h3>
 <b>ASYNC FOR UPDATING PRICES </b><br>
@@ -18,6 +19,6 @@ Lots of exceptions for different cases.
 + Link not recognized
 + Link already in db
 
-Individual pages for each link to see history / graph. <br>
+Improve individual pages with graphs and stuff. <br>
 Alerts for low price (app / email / something).<br>
 Clean up code, especially db_module (someday) <br>
