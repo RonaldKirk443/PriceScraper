@@ -138,9 +138,11 @@ def get_price_change(connection):
     secondary_percent_change = []
     for link_id in table_id:
         table_name = "Link_" + str(link_id[0])
+        print(table_name)
         sql_row_count = """SELECT COUNT(*) FROM {}""".format(table_name)
         cursor.execute(sql_row_count)
         last_row = cursor.fetchall()[0][0]
+        print(last_row)
         sql_curr_price = """SELECT Official_price FROM {} WHERE ID = {}""".format(table_name, last_row)
         cursor.execute(sql_curr_price)
         get_cursor = cursor.fetchall()[0][0]
@@ -166,8 +168,8 @@ def get_price_change(connection):
                 price_change.append(round(curr_price - old_price))
                 percent_change.append(abs(round(((curr_price - old_price) / old_price) * 100)))
             else:
-                price_change.append("ERR")
-                percent_change.append("ERR")
+                price_change.append("0")
+                percent_change.append("0")
         else:
             price_change.append(0)
             percent_change.append(0)
@@ -180,8 +182,8 @@ def get_price_change(connection):
                 secondary_price_change.append(round(secondary_price - secondary_old_price))
                 secondary_percent_change.append(abs(round(((secondary_price - secondary_old_price) / secondary_old_price) * 100)))
             else:
-                secondary_price_change.append("ERR")
-                secondary_percent_change.append("ERR")
+                secondary_price_change.append("0")
+                secondary_percent_change.append("0")
         else:
             secondary_price_change.append(0)
             secondary_percent_change.append(0)
