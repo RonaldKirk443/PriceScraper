@@ -173,12 +173,12 @@ def get_price_change(connection):
             sql_old_price = """SELECT Official_price FROM {} WHERE ID = {}""".format(table_name, last_row - 1)
             cursor.execute(sql_old_price)
             old_price = cursor.fetchall()[0][0]
-            if(isinstance(old_price, float)):
+            if(check_float(old_price)):
                 price_change.append(round(curr_price - old_price))
                 percent_change.append(abs(round(((curr_price - old_price) / old_price) * 100)))
             else:
-                price_change.append("0")
-                percent_change.append("0")
+                price_change.append(0)
+                percent_change.append(0)
         else:
             price_change.append(0)
             percent_change.append(0)
@@ -187,12 +187,12 @@ def get_price_change(connection):
             sql_old_price = """SELECT Unofficial_price FROM {} WHERE ID = {}""".format(table_name, last_row - 1)
             cursor.execute(sql_old_price)
             secondary_old_price = cursor.fetchall()[0][0]
-            if(isinstance(old_price, float)):
+            if(check_float(secondary_old_price)):
                 secondary_price_change.append(round(secondary_price - secondary_old_price))
                 secondary_percent_change.append(abs(round(((secondary_price - secondary_old_price) / secondary_old_price) * 100)))
             else:
-                secondary_price_change.append("0")
-                secondary_percent_change.append("0")
+                secondary_price_change.append(0)
+                secondary_percent_change.append(0)
         else:
             secondary_price_change.append(0)
             secondary_percent_change.append(0)

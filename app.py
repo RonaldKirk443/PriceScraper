@@ -29,7 +29,7 @@ def get_page(url):
 
 def get_amazon_ca_data(link, website, date, currency):
     amazonPriceRegex = "data-a-color=\"price\"><span class=\"a-offscreen\">\$(.*?)<"
-    amazonLowestPriceRegex = "class=\"a-size-base a-color-base\">\$(.*?)<"
+    amazonLowestPriceRegex = "</span><span class=\"a-size-base a-color-price\">\$(.*?)<"
     # amazonLowestPriceRegex = "id=\"price_inside_buybox\" class=\"a-size-medium a-color-price\">(.*?)<"
     amazonPriceRegexCut = "[0-9](.*?)<"
     amazonTitleRegex1 = "<title>(.*?): Amazon"
@@ -142,9 +142,18 @@ def link_page():
     import db_module
     conn = db_module.create_connection(database)
     response = db_module.get_link_db(conn, link_id)
-    return render_template("entry.html", headings=headings, data=response)
+    labels = []
+    price = []
+    secondary_price = []
+    for row in response:
+        labels.append(row[4])
+        price.append(row[2])
+        secondary_price.append(row[3])
+
+    return render_template("entry.html", headings=headings, data=response, x_axis=labels, price=price, secondary_price=secondary_price)
 
 @app.route("/link", methods=['POST'])
 def link_page_post():
     if (request.form.get('main-menu-btn') != None):
         return redirect(url_for('index'))
+

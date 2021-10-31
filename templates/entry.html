@@ -4,12 +4,50 @@
     <meta charset="UTF-8">
     <title>Price Tracker</title>
     <link rel="stylesheet" href="/static/styles.css">
+    <script src='/static/chart.min.js'></script>
 </head>
 <body>
     <h1 class="header">Price Tracker</h1>
     <form method="POST">
         <input style="margin-left: 1rem" name="main-menu-btn" value="Main menu" type="submit">
     </form>
+    <canvas id="chart" width="1200" height="800"></canvas>
+    <script>
+        var ctx = document.getElementById("chart").getContext("2d");
+        ctx.canvas.width = window.innerWidth;
+        var lineChart = new Chart(ctx, {
+          type: "line",
+          data: {
+            labels: {{ x_axis | safe }},
+            datasets: [
+              {
+                label: "Main Price",
+                data: {{ price | safe}},
+                fill: false,
+                borderColor: "rgb(28, 74, 212)",
+                lineTension: 0.1
+              },
+              {
+                label: "Secondary Price",
+                data: {{ secondary_price | safe}},
+                fill: false,
+                borderColor: "rgb(75, 192, 192)",
+                lineTension: 0.1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            spanGaps: true,
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        })
+    </script>
+    <br/><br/><br/><br/>
     <table class="table">
         <tr class="table_header">
             {% for header in headings %}
