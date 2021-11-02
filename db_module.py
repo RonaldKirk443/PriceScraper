@@ -42,7 +42,6 @@ def create_sql_table(connection, name, website, currency, real_price, unreal_pri
     # Get the amount of tables present to generate proper name for next table" (amount of tables + 1)
     cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
     table_id = int(cursor.fetchall()[0][0])
-    print(table_id)
     table_name = "Link_" + str(table_id+1)
 
     # Create Table
@@ -112,7 +111,6 @@ def get_links(connection):
     result = cursor.fetchall()
     for i in range(len(result)):
         link_list.append(result[i][0])
-    print(link_list)
     connection.commit()
     cursor.close()
     return link_list
@@ -147,11 +145,9 @@ def get_price_change(connection):
     secondary_percent_change = []
     for link_id in table_id:
         table_name = "Link_" + str(link_id[0])
-        print(table_name)
         sql_row_count = """SELECT COUNT(*) FROM {}""".format(table_name)
         cursor.execute(sql_row_count)
         last_row = cursor.fetchall()[0][0]
-        print(last_row)
         sql_curr_price = """SELECT Official_price FROM {} WHERE ID = {}""".format(table_name, last_row)
         cursor.execute(sql_curr_price)
         get_cursor = cursor.fetchall()[0][0]
