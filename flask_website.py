@@ -1,22 +1,8 @@
 from flask import Flask, request, render_template, redirect, url_for
 import threading
-from flask_socketio import SocketIO, emit
 
 app = Flask(__name__)
 database = r"db\test.db"
-socketio = SocketIO(app)
-
-@socketio.on('my event')
-def test_message(message):
-    emit('my response', {'data': message['data']})
-
-@socketio.on('connect')
-def test_connect():
-    emit('my response', {'data': 'Connected'})
-
-@socketio.on('disconnect')
-def test_disconnect():
-    print('Client disconnected')
 
 @app.route("/")
 def index():

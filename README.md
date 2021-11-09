@@ -12,16 +12,18 @@ Simple version of individual pages for each link (Oct 22, 2021) <br>
 Individual pages received graphs (Oct 30, 2021) <br>
 Simple background task for updating the database (Nov 5, 2021) <br>
 Support for Newegg (Nov 8, 2021) <br>
+Sort table by element (Nov 9, 2021) <br>
+Added bootstrap to make my shit a little shinier (Nov 9, 2021) <br>
 
 <h3>TODO:</h3>
 <b>Get the background task to notify and reload page when its done</b><br>
-Support for ebay<br>
+Ability to change entry title <br>
+Support for ebay <br>
 Auto update every day or so <br>
-Sort table by element <br>
 Lots of exceptions for different cases.
 + Link not recognized
 + Link already in db
 
-Improve individual pages somehow idk, they feel blank<br>
+Improve individual pages somehow idk, they feel blank <br>
 Alerts for low price (app / email / something) <br>
 Clean up code, especially db_module (someday) <br>

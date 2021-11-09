@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Price Tracker {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="/static/bootstrap4.6.1.min.css" rel="stylesheet" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/static/dataTables.bootstrap4.min.css">
+
+    <script type="text/javascript" charset="utf8" src="/static/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/static/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="/static/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="/static/title-string.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
