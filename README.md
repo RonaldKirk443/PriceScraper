@@ -15,7 +15,7 @@ Support for Newegg (Nov 8, 2021) <br>
 
 <h3>TODO:</h3>
 <b>Get the background task to notify and reload page when its done</b><br>
-Support for newegg and ebay<br>
+Support for ebay<br>
 Auto update every day or so <br>
 Sort table by element <br>
 Lots of exceptions for different cases.
