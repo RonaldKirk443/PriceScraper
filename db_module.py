@@ -62,8 +62,8 @@ def create_sql_table(connection, name, website, currency, real_price, unreal_pri
 
 def price_update(connection, name, real_price, unreal_price, date, link):
     cursor = connection.cursor()
-    sql_update_index = """UPDATE "main"."Main_Index" SET Name = ?, Official_price = ?, Unofficial_price = ?, "Date" = ? WHERE Link = ?"""
-    cursor.execute(sql_update_index, (name, real_price, unreal_price, date, link))
+    sql_update_index = """UPDATE "main"."Main_Index" SET Official_price = ?, Unofficial_price = ?, "Date" = ? WHERE Link = ?"""
+    cursor.execute(sql_update_index, (real_price, unreal_price, date, link))
     sql_name_getter = """SELECT ID FROM Main_Index WHERE Link = ?"""
     cursor.execute(sql_name_getter, (link,))
     sql_id = cursor.fetchall()
@@ -201,8 +201,21 @@ def get_price_change(connection):
     cursor.close()
     return output
 
+def get_entry_name(connection, entry_id):
+    sql_name = "SELECT Name FROM Main_Index WHERE ID = {}".format(entry_id)
+    cursor = connection.cursor()
+    cursor.execute(sql_name)
+    result = cursor.fetchall()[0][0]
+    connection.commit()
+    cursor.close()
+    return result
+
+def change_entry_name(connection, entry_id, new_name):
+    sql_name = """UPDATE "main"."Main_Index" SET Name = "{}" WHERE ID = {}""".format(new_name, entry_id)
+    cursor = connection.cursor()
+    cursor.execute(sql_name)
+    connection.commit()
+    cursor.close()
+
 #conn = create_connection(database)
-#cursor = conn.cursor()
-#cursor.execute("SELECT \"ID\" FROM Main_Index ORDER BY \"ID\" DESC LIMIT 1;")
-#table_id = int(cursor.fetchall()[0][0])
-#print(table_id)
+#get_entry_name(conn, "5")

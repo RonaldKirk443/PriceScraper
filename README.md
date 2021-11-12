@@ -14,10 +14,10 @@ Simple background task for updating the database (Nov 5, 2021) <br>
 Support for Newegg (Nov 8, 2021) <br>
 Sort table by element (Nov 9, 2021) <br>
 Added bootstrap to make my shit a little shinier (Nov 9, 2021) <br>
+Ability to change entry title (Nov 11, 2021)<br>
 
 <h3>TODO:</h3>
 <b>Get the background task to notify and reload page when its done</b><br>
-Ability to change entry title <br>
 Support for ebay <br>
 Auto update every day or so <br>
 Lots of exceptions for different cases.

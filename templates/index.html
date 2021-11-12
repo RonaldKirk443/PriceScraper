@@ -26,7 +26,7 @@
         <tr class="table_row">
             {% for i in range(row|length) %}
                 {% if i == 1%}
-                    <td style="overflow: auto" class="table_cell"><form method="POST"><input name="entry-link {{row[0]}}" class="link_button" title="{{ row[i] }}" value="{{ row[i] }}" type="submit"></form></td>
+                    <td style="overflow: auto" class="table_cell"><form method="POST"><input name="entry-link {{row[0]}}" class="link_button" title="{{ row[i] }}" value="{{ row[i] }}" type="submit"><br><button name="entry-name-edit-btn {{row[0]}}" type="submit">Edit Name</button></form></td>
                 {% elif i == 4%}
                     {% if price_change[outer_loop.index -1] > 0%}
                         <td class="table_cell">{{ row[i] }} <br> <p class="text-danger">+{{ price_change[outer_loop.index -1]}}({{ price_percentage_change[outer_loop.index - 1]}}%)</p></td>

@@ -24,6 +24,10 @@ def index_post():
         conn = db_module.create_connection(database)
         db_module.del_record_by_id(conn, entryNum)
         return redirect(url_for('index'))
+    elif ('entry-name-edit-btn' in str(request.form.keys())):
+        print(str(request.form.keys()))
+        entryNum = str(request.form.keys())[32:-3]
+        return redirect(url_for('edit_entry_name', entry_id=entryNum))
     elif ('entry-link' in str(request.form.keys())):
         link_id = str(request.form.keys())[23:-3]
         return redirect(url_for('link_page', link_id=link_id))
@@ -71,6 +75,31 @@ def link_page():
 def link_page_post():
     if (request.form.get('main-menu-btn') != None):
         return redirect(url_for('index'))
+
+@app.route("/entry_name_editor")
+def edit_entry_name():
+    entry_id = str(request.args['entry_id'])
+    import db_module
+    conn = db_module.create_connection(database)
+    response = db_module.get_entry_name(conn, entry_id)
+
+    return render_template("editName.html", name=response)
+
+@app.route("/entry_name_editor", methods=['POST'])
+def edit_entry_name_post():
+    new_name = request.form['new-name-input']
+    if (request.form.get('change-name-btn') != None):
+        import db_module
+        conn = db_module.create_connection(database)
+        entry_id = str(request.args['entry_id'])
+        old_name = db_module.get_entry_name(conn, entry_id)
+        if (new_name != "" and new_name != None and new_name != old_name):
+            import db_module
+            conn = db_module.create_connection(database)
+            db_module.change_entry_name(conn, entry_id, new_name)
+        else:
+            print("doing nothing")
+    return redirect(url_for('index'))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')

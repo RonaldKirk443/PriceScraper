@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %} Edit Name {% endblock %}
+{% block content %}
+<h1 class="header">Changing Name</h1>
+<br>
+<h3>Previous name is: {{name}}</h3>
+<br>
+<h3>What would you like to change it to?</h3>
+<br>
+<form METHOD="post">
+    <input name="new-name-input" value="{{name}}" size="150" class="input-box">
+    <br>
+    <input name="change-name-btn" type="submit" value="Change">
+    <input class="cancel-btn" name="update-btn" value="Cancel" type="submit">
+</form>
+{% endblock %}
