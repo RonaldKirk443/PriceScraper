@@ -92,7 +92,7 @@ def del_record(connection, link):
 
 def del_record_by_id(connection, id):
     cursor = connection.cursor()
-    table_name = "Link_" + id
+    table_name = "Link_" + str(id)
     if (len(table_name) <= 0):
         return
 
@@ -216,6 +216,15 @@ def change_entry_name(connection, entry_id, new_name):
     cursor.execute(sql_name)
     connection.commit()
     cursor.close()
+
+def get_entry_link(connection, entry_id):
+    sql_name = "SELECT Link FROM Main_Index WHERE ID = {}".format(entry_id)
+    cursor = connection.cursor()
+    cursor.execute(sql_name)
+    result = cursor.fetchall()[0][0]
+    connection.commit()
+    cursor.close()
+    return result
 
 #conn = create_connection(database)
 #get_entry_name(conn, "5")

@@ -2,10 +2,11 @@
 {% block title %} Entry {% endblock %}
 {% block content %}
 <script src='/static/chart.min.js'></script>
-<h1 class="header">Price Tracker</h1>
+<br>
 <form method="POST">
     <input style="margin-left: 1rem" name="main-menu-btn" value="Main menu" type="submit">
 </form>
+<div class="text-center header h1"><a style="text-decoration: underline;" href="{{link}}">{{name}}</a></div>
 <canvas id="chart" width="1200" height="800"></canvas>
 <script>
     var ctx = document.getElementById("chart").getContext("2d");

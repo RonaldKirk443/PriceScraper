@@ -14,16 +14,21 @@ Simple background task for updating the database (Nov 5, 2021) <br>
 Support for Newegg (Nov 8, 2021) <br>
 Sort table by element (Nov 9, 2021) <br>
 Added bootstrap to make my shit a little shinier (Nov 9, 2021) <br>
-Ability to change entry title (Nov 11, 2021)<br>
+Ability to change entry title (Nov 11, 2021) <br>
+PAGE RELOADS WHEN DB IS UPDATED (works with some caveats - needs to be redone)!!! (Nov 14, 2021) <br>
+Website remembers how you sorted the table (Nov 14, 2021) <br>
+Added title to entry page that leads to the product link (Nov 15; Nov 20, 2021) <br>
 
 <h3>TODO:</h3>
-<b>Get the background task to notify and reload page when its done</b><br>
+Folders <br>
 Support for ebay <br>
-Auto update every day or so <br>
-Lots of exceptions for different cases.
+Auto update every day at noon<br>
++ Refresh page when it auto updates (different from what is done as of Nov 14, 2021)
+
+Lots of exceptions for different cases<br>
 + Link not recognized
 + Link already in db
++ No link in input field
 
-Improve individual pages somehow idk, they feel blank <br>
 Alerts for low price (app / email / something) <br>
 Clean up code, especially db_module (someday) <br>
