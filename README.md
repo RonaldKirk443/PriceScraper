@@ -23,7 +23,7 @@ Added title to entry page that leads to the product link (Nov 15; Nov 20, 2021) 
 Folders <br>
 Support for ebay <br>
 Auto update every day at noon<br>
-+ Refresh page when it auto updates (different from what is done as of Nov 14, 2021)
+Refresh page when it auto updates (different from what is done as of Nov 14, 2021)
 
 Lots of exceptions for different cases<br>
 + Link not recognized
