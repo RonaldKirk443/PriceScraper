@@ -32,3 +32,4 @@ Lots of exceptions for different cases<br>
 
 Alerts for low price (app / email / something) <br>
 Clean up code, especially db_module (someday) <br>
+Add an option to change link to cad / american amazon if possible <br>
