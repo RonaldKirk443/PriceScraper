@@ -1,0 +1,7 @@
+hamburger top right
+navbar with title that is passed from the flask_website route
+folder stored with the individual entrys of the main_index in db
+
+how to add to folder?
+dropdown in index for entrys that shows a list of all folders with checkboxes on the right
+dropdown should also have an option to create a new folder
